@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <span>{{ currentUser }}</span>
+</mat-toolbar>
+
+<nav class="navbar">
+  <mat-nav-list>
+    <a mat-list-item routerLink="/all-recipes">כל המתכונים</a>
+
+    <a *ngIf="currentUser === 'אורח'" mat-list-item routerLink="/register">הרשמה</a>
+    <a *ngIf="currentUser === 'אורח'" mat-list-item routerLink="/login">התחברות</a>
+    <a *ngIf="currentUser !== 'אורח'" mat-list-item routerLink="/add-recipe">הוסף מתכון</a>
+    <a *ngIf="currentUser !== 'אורח'" mat-list-item routerLink="/my-recipes">המתכונים שלי</a>
+    <span class="spacer"></span>
+    <a *ngIf="currentUser !== 'אורח'" mat-list-item class="logout-btn" (click)="logout()">התנתק</a>
+  </mat-nav-list>
+</nav>
