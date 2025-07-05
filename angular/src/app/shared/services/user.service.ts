@@ -37,7 +37,7 @@ export class UserService {
     return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers });
   }
 
-  updatePassword(id: number, data: { password: string }): Observable<User> {
+  updatePassword(id: string | null, data: { password: string }): Observable<User> {
     const user = localStorage.getItem('user');
     const token = user ? JSON.parse(user).token : null;
     const headers = token ? new HttpHeaders().set('Authorization', `Bearer ${token}`) : undefined;

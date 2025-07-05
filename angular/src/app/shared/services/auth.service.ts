@@ -37,11 +37,6 @@ export class AuthService {
     this.currentUserSubject.next(userData.username);
   }
 
-  clearUser() {
-    localStorage.removeItem('user');
-    this.currentUserSubject.next('אורח');
-  }
-
   getToken(): string | null {
     return this.token;
   }
@@ -58,9 +53,30 @@ export class AuthService {
       const token = userObj.token || userObj; // במקרה ששמרת ישר הטוקן או אובייקט
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload._id || payload.id || null;
-    } catch (e) {
+    }
+    catch (e) {
       console.error('שגיאה בפענוח טוקן:', e);
       return null;
+    }
+  }
+
+  isAdmin(): boolean {
+    if (typeof localStorage === 'undefined') return false;
+
+    const userStr = localStorage.getItem('user');
+    if (!userStr) return false;
+
+    try {
+      const user = JSON.parse(userStr);
+      const token = user.token;
+      if (!token) return false;
+
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role === 'admin';
+    }
+    catch (e) {
+      console.error('שגיאה בפענוח הטוקן:', e);
+      return false;
     }
   }
 

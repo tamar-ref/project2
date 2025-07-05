@@ -17,18 +17,22 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class NavbarComponent implements OnInit {
   currentUser: string = 'אורח';
+  isAdmin: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.currentUser$.subscribe(name => {
       this.currentUser = name;
+      this.isAdmin = this.authService.isAdmin();
     });
   }
 
   logout() {
     localStorage.removeItem('user');
     this.currentUser = 'אורח';
+    this.isAdmin = false;
     this.router.navigate(['/']);
   }
+  
 }

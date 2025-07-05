@@ -9,3 +9,7 @@
   width: 100%;
   margin-bottom: 20px;
 }
+
+input.ng-invalid.ng-touched {
+  border-color: red;
+}
