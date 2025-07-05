@@ -36,10 +36,9 @@ export class AllRecipesComponent implements OnInit {
 
   loadRecipes() {
     const userId = this.authService.getUserIdFromToken() ?? undefined;
-    this.recipeService.getAllRecipes(userId, this.searchTerm).subscribe({
+    this.recipeService.getAllRecipes(userId).subscribe({
       next: (data) => {
         this.recipes = data;
-        this.error = this.recipes.length === 0 ? 'אין מתכונים' : '';
         this.filterRecipes();
       },
       error: () => {
@@ -49,10 +48,16 @@ export class AllRecipesComponent implements OnInit {
   }
 
   onSearchChange(): void {
-    this.loadRecipes();
+    this.filterRecipes();
   }
 
   filterRecipes(): void {
+    if (this.recipes.length === 0) {
+      this.filteredRecipes = [];
+      this.error = 'אין מתכונים';
+      return;
+    }
+
     const categoryTerm = this.categorySearchTerm.toLowerCase().trim();
     const nameTerm = this.searchTerm.toLowerCase().trim();
 

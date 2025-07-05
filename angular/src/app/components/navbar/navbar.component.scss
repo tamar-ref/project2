@@ -29,5 +29,10 @@ mat-nav-list button {
 }
 
 .spacer {
-  flex-grow: 1;
+    flex-grow: 1;
+}
+
+.active-link {
+    background-color: #c5cae9;
+    border-radius: 4px;
 }

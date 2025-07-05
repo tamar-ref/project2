@@ -38,16 +38,9 @@ export class MyRecipesComponent implements OnInit {
     this.recipeService.getMyRecipes().subscribe({
       next: (data) => {
         this.recipes = data;
-        if (this.recipes.length == 0) {
-          this.error = 'אין מתכונים'
-        }
-        else {
-          this.error = '';
-        }
         this.filterRecipes();
       },
       error: (err) => {
-        //console.error('שגיאה בטעינת מתכונים', err.message)
         this.error = 'שגיאה בטעינת מתכונים';
       }
     });
@@ -58,6 +51,11 @@ export class MyRecipesComponent implements OnInit {
   }
 
   filterRecipes(): void {
+    if (this.recipes.length === 0) {
+      this.filteredRecipes = [];
+      this.error = 'אין מתכונים';
+      return;
+    }
     const categoryTerm = this.categorySearchTerm.toLowerCase().trim();
     const nameTerm = this.searchTerm.toLowerCase().trim();
 
