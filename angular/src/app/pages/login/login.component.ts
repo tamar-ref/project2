@@ -29,7 +29,6 @@ export class LoginComponent {
         this.router.navigate(['/']);
       },
       error: (err) => {
-        //console.error('Login failed:', err.error.error);
         alert(err.error.error)
       }
     });

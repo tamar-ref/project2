@@ -27,6 +27,7 @@ export class UpdatePasswordComponent {
 
     if (!this.newPassword || this.newPassword.length < 4) {
       this.errorMessage = 'יש להזין סיסמה באורך של לפחות 4 תווים';
+      alert(this.errorMessage);
       return;
     }
 
